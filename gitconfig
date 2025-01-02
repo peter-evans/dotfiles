@@ -4,9 +4,9 @@
 [alias]
 	# List aliases.
     la = "!f() { git config --get-regexp alias; };f"
-	# Reset all commits on the current branch.
+    # Reset all commits on the current branch.
     resetb = "!f() { git reset --soft $(git merge-base HEAD \"$1\"); };f"
-	# Squash all commits on the current branch into a new commit.
+    # Squash all commits on the current branch into a new commit.
 	# Note: writing the commit message to a temporary file to preserve `\n` newlines.
 	squashb = "!f() { git resetb \"$1\" && echo \"$2\" > /tmp/commitmsg && git commit -F /tmp/commitmsg && rm /tmp/commitmsg; };f"
 	# Compare the number of commits between the current branch and its remote.
