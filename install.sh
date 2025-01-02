@@ -1,7 +1,7 @@
 #!/bin/bash
-# Creates symlinks from the home directory to dotfiles in ~/dotfiles
+# Creates symlinks from the home directory to dotfiles in this repository
 
-dotfiles_dir=~/dotfiles
+dotfiles_dir=$PWD
 backup_dir=~/dotfiles_backup
 files="gitconfig" # space-separated list of files/folders to symlink in homedir
 
