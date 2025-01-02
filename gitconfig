@@ -1,0 +1,19 @@
+[user]
+	email = 18365890+peter-evans@users.noreply.github.com
+	name = Peter Evans
+[alias]
+	# List aliases.
+    la = "!f() { git config --get-regexp alias; };f"
+	# Reset all commits on the current branch.
+    resetb = "!f() { git reset --soft $(git merge-base HEAD \"$1\"); };f"
+	# Squash all commits on the current branch into a new commit.
+	# Note: writing the commit message to a temporary file to preserve `\n` newlines.
+	squashb = "!f() { git resetb \"$1\" && echo \"$2\" > /tmp/commitmsg && git commit -F /tmp/commitmsg && rm /tmp/commitmsg; };f"
+	# Compare the number of commits between the current branch and its remote.
+	revc = "!f() { git rev-list --left-right --count $1...origin/$1; };f"
+	# List local branches with no remote.
+	lgone = "!f() { git branch -vv | grep ': gone]' | awk '{print $1}'; };f"
+	# Delete local branches with no remote.
+	dgone = "!f() { git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d; };f"
+	# Force-delete local branches with no remote.
+	fdgone = "!f() { git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D; };f"
