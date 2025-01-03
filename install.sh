@@ -22,10 +22,12 @@ echo "done"
 
 # Backup any existing dotfiles and then create symlinks
 for file in $files; do
-    if [ -L ~/.$file ]; then
+    if [ ! -e ~/.$file ]; then
+        echo "$file doesn't exist; skipping backup"
+    elif [ -L ~/.$file ]; then
         echo "$file is a symlink; skipping backup"
     else
-        echo -n "Moving $file from ~ to $backup_dir if it exists ..."
+        echo -n "Moving $file from ~ to $backup_dir ..."
         mv ~/.$file $backup_dir/
         echo "done"
     fi
@@ -34,12 +36,7 @@ for file in $files; do
     echo "done"
 done
 
-# Install tools on codespaces
-if [ "${CODESPACES:-}" = "true" ] && cmd_exists apt-get; then
-    sudo apt-get update
-    for p in ripgrep jq htop; do
-        if ! cmd_exists "$p"; then
-            sudo apt-get install -y "$p"
-        fi
-    done
+# Install ripgrep on codespaces
+if [ "${CODESPACES:-}" = "true" ] && cmd_exists apt-get && ! cmd_exists rg; then
+    sudo apt-get update && sudo apt-get install -y ripgrep
 fi
