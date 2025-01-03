@@ -1,5 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
 # Creates symlinks from the home directory to dotfiles in this repository
+
+set -euo pipefail
+
+source script/utils.sh
 
 dotfiles_dir=$PWD
 backup_dir=~/dotfiles_backup
@@ -28,3 +33,13 @@ for file in $files; do
     ln -sf $dotfiles_dir/$file ~/.$file
     echo "done"
 done
+
+# Install tools on codespaces
+if [ "${CODESPACES:-}" = "true" ] && cmd_exists apt-get; then
+    sudo apt-get update
+    for p in ripgrep jq htop; do
+        if ! cmd_exists "$p"; then
+            sudo apt-get install -y "$p"
+        fi
+    done
+fi
