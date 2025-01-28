@@ -11,6 +11,8 @@
     squashb = "!f() { git resetb \"$1\" && echo \"$2\" > /tmp/commitmsg && git commit -F /tmp/commitmsg && rm /tmp/commitmsg; };f"
     # Compare the number of commits between the current branch and its remote.
     revc = "!f() { git rev-list --left-right --count $1...origin/$1; };f"
+    # Fetch all remotes and prune.
+    fap = "!f() { git fetch --all --prune; };f"
     # List local branches with no remote.
     lgone = "!f() { git branch -vv | grep ': gone]' | awk '{print $1}'; };f"
     # Delete local branches with no remote.
