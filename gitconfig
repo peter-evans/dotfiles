@@ -7,7 +7,7 @@
     # List my remote branches.
     mrb = "!f() { git branch -r --list origin/peter-evans*; };f"
     # Fetch-checkout-pull
-    fcp = "!f() { git fetch origin/\"$1\" && git checkout \"$1\" && git pull; };f"
+    fcp = "!f() { git fetch origin \"$1\" && git checkout \"$1\" && git pull; };f"
     # Reset all commits on the current branch.
     resetb = "!f() { git reset --soft $(git merge-base HEAD \"$1\"); };f"
     # Squash all commits on the current branch into a new commit.
