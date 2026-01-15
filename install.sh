@@ -41,18 +41,12 @@ if [ "${CODESPACES:-}" = "true" ] && cmd_exists apt-get && ! cmd_exists rg; then
     sudo apt-get update && sudo apt-get install -y ripgrep
 fi
 
-# Configure GitHub MCP server for VS Code in Codespaces
-if [ "${CODESPACES:-}" = "true" ]; then
-    mcp_config_dir="$HOME/.vscode-remote/data/User"
-    mcp_config_file="$mcp_config_dir/mcp.json"
-    mkdir -p "$mcp_config_dir"
-    echo -n "Configuring mcp.json ..."
-    if [ -f "$mcp_config_file" ]; then
-        # Merge with existing configuration
-        jq -s '.[0] * .[1]' "$mcp_config_file" "$dotfiles_dir/mcp.json" > "$mcp_config_file.tmp"
-        mv "$mcp_config_file.tmp" "$mcp_config_file"
-    else
-        cp "$dotfiles_dir/mcp.json" "$mcp_config_file"
-    fi
+# Add bin directory to PATH for custom commands
+if [ -d "$dotfiles_dir/bin" ]; then
+    echo -n "Creating symlinks for bin commands ..."
+    mkdir -p "$HOME/.local/bin"
+    for cmd in "$dotfiles_dir/bin"/*; do
+        ln -sf "$cmd" "$HOME/.local/bin/$(basename "$cmd")"
+    done
     echo "done"
 fi
