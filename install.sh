@@ -40,3 +40,12 @@ done
 if [ "${CODESPACES:-}" = "true" ] && cmd_exists apt-get && ! cmd_exists rg; then
     sudo apt-get update && sudo apt-get install -y ripgrep
 fi
+
+# Configure GitHub MCP server for VS Code in Codespaces
+if [ "${CODESPACES:-}" = "true" ]; then
+    mcp_config_dir="$HOME/.vscode-remote/data/User"
+    mkdir -p "$mcp_config_dir"
+    echo -n "Creating symlink for mcp.json ..."
+    ln -sf "$dotfiles_dir/mcp.json" "$mcp_config_dir/mcp.json"
+    echo "done"
+fi
