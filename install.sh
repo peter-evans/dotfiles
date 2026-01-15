@@ -44,8 +44,15 @@ fi
 # Configure GitHub MCP server for VS Code in Codespaces
 if [ "${CODESPACES:-}" = "true" ]; then
     mcp_config_dir="$HOME/.vscode-remote/data/User"
+    mcp_config_file="$mcp_config_dir/mcp.json"
     mkdir -p "$mcp_config_dir"
-    echo -n "Creating symlink for mcp.json ..."
-    ln -sf "$dotfiles_dir/mcp.json" "$mcp_config_dir/mcp.json"
+    echo -n "Configuring mcp.json ..."
+    if [ -f "$mcp_config_file" ]; then
+        # Merge with existing configuration
+        jq -s '.[0] * .[1]' "$mcp_config_file" "$dotfiles_dir/mcp.json" > "$mcp_config_file.tmp"
+        mv "$mcp_config_file.tmp" "$mcp_config_file"
+    else
+        cp "$dotfiles_dir/mcp.json" "$mcp_config_file"
+    fi
     echo "done"
 fi
