@@ -1,0 +1,41 @@
+#!/bin/bash
+# Squash all commits on the current branch into a new commit.
+# If no commit message is supplied, uses the message from the first commit on the branch.
+#
+# Usage: git squashb <base-branch> [commit-message]
+#   base-branch    - The branch to compare against (e.g., main, master)
+#   commit-message - Optional. If omitted, uses the first commit's message.
+
+set -e
+
+if [ -z "$1" ]; then
+    echo "Usage: git squashb <base-branch> [commit-message]"
+    exit 1
+fi
+
+base_branch="$1"
+commit_message="$2"
+
+# Find the merge base (where the current branch diverged)
+base=$(git merge-base HEAD "$base_branch")
+
+# If no commit message supplied, use the message from the first commit on the branch
+if [ -z "$commit_message" ]; then
+    first_commit=$(git log --reverse --format=%H "$base"..HEAD | head -1)
+    if [ -z "$first_commit" ]; then
+        echo "Error: No commits found between HEAD and $base_branch"
+        exit 1
+    fi
+    commit_message=$(git log -1 --format=%B "$first_commit")
+fi
+
+# Write message to temp file to preserve newlines
+temp_file=$(mktemp)
+printf '%s' "$commit_message" > "$temp_file"
+
+# Soft reset to the merge base and create new commit
+git reset --soft "$base"
+git commit -F "$temp_file"
+
+# Clean up
+rm "$temp_file"
