@@ -50,3 +50,6 @@ if [ -d "$dotfiles_dir/bin" ]; then
     done
     echo "done"
 fi
+
+# Install prompts
+"$dotfiles_dir/bin/install-prompts"
