@@ -10,5 +10,9 @@ If not already provided, ask where the code changes are located, e.g.:
 - branch - the current branch compared to the default branch
 
 Requirements:
-* The first paragraph should provide a high level description of the changes
-* The second paragraph should describe the approach and detailed breakdown of changes
+* The top line commit message should be within 72 characters
+* The first paragraph of the description should provide a high level overview of the changes
+* The second paragraph of the description should provide a detailed breakdown of the changes and the approach taken
+* Output as plain text, wrapped in triple backticks
+* Only use conventional commit style if it is used in the repository already
+* Suffix the commit description with `[ci-full]`
