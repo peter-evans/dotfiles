@@ -38,7 +38,8 @@ done
 
 # Install ripgrep on codespaces
 if [ "${CODESPACES:-}" = "true" ] && cmd_exists apt-get && ! cmd_exists rg; then
-    sudo apt-get update && sudo apt-get install -y ripgrep
+    sudo apt-get update || true
+    sudo apt-get install -y ripgrep
 fi
 
 # Add bin directory to PATH for custom commands
