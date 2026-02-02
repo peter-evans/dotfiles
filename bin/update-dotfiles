@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# Updates and installs dotfiles
+
+set -euo pipefail
+
+main() {
+    local script_path="${BASH_SOURCE[0]}"
+    # Resolve symlinks to get the actual script location
+    while [ -L "$script_path" ]; do
+        local script_dir="$(cd -P "$(dirname "$script_path")" && pwd)"
+        script_path="$(readlink "$script_path")"
+        [[ $script_path != /* ]] && script_path="$script_dir/$script_path"
+    done
+    local dotfiles_dir="$(cd -P "$(dirname "$script_path")/.." && pwd)"
+
+    echo "Updating dotfiles..."
+    cd "$dotfiles_dir" && git pull
+
+    echo "Installing dotfiles..."
+    cd "$dotfiles_dir" && ./install.sh
+}
+
+main "$@"
