@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-source script/utils.sh
+source lib/utils.sh
 
 dotfiles_dir=$PWD
 backup_dir=~/dotfiles_backup

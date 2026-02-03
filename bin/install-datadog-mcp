@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Installs GitHub MCP server configuration for VS Code in Codespaces
+# Installs Datadog MCP server configuration for VS Code in Codespaces
 
 set -euo pipefail
 
@@ -15,9 +15,9 @@ mkdir -p "$mcp_config_dir"
 echo -n "Configuring mcp.json ..."
 if [ -f "$mcp_config_file" ]; then
     # Merge with existing configuration
-    jq -s '.[0] * .[1]' "$mcp_config_file" "$dotfiles_dir/github-mcp.json" > "$mcp_config_file.tmp"
+    jq -s '.[0] * .[1]' "$mcp_config_file" "$dotfiles_dir/datadog-mcp.json" > "$mcp_config_file.tmp"
     mv "$mcp_config_file.tmp" "$mcp_config_file"
 else
-    cp "$dotfiles_dir/github-mcp.json" "$mcp_config_file"
+    cp "$dotfiles_dir/datadog-mcp.json" "$mcp_config_file"
 fi
 echo "done"
