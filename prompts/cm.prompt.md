@@ -4,7 +4,7 @@ description: 'Write a commit message based on code changes.'
 ---
 Your goal is to write a commit message that accurately reflects changes made to a codebase.
 
-If not already provided, ask where the code changes are located, e.g.:
+The location of the code changes may be specified by the user. If not provided, default to 'uncommitted'.
 - uncommitted - the uncommitted changes in git
 - staged - the staged changes in git
 - branch - the current branch compared to the default branch
