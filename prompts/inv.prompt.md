@@ -1,6 +1,6 @@
 ---
 agent: 'agent'
-description: 'Start or continue an existing investigation, documented in markdown.'
+description: 'Start or continue an existing investigation'
 ---
 Your goal is to start or continue an existing investigation, and document findings in markdown format.
 

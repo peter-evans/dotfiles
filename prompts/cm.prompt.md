@@ -1,6 +1,6 @@
 ---
 agent: 'agent'
-description: 'Write a commit message based on code changes.'
+description: 'Write a commit message based on code changes'
 ---
 Your goal is to write a commit message that accurately reflects changes made to a codebase.
 
