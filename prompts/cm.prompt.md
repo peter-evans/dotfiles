@@ -15,4 +15,4 @@ Requirements:
 * The second paragraph of the description should provide a detailed breakdown of the changes and the approach taken
 * Output as plain text, wrapped in triple backticks
 * Only use conventional commit style if it is used in the repository already
-* Suffix the commit description with `[ci-full]`
+* After the commit description, add a blank line and then add `[ci-full]`
