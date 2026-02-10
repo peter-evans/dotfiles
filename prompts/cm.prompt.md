@@ -13,6 +13,7 @@ Requirements:
 * The top line commit message should be within 72 characters
 * The first paragraph of the description should provide a high level overview of the changes
 * The second paragraph of the description should provide a detailed breakdown of the changes and the approach taken. Tend towards using bullet points for readability.
+* Use single backticks to format code elements, such as file paths, function names, variable names, etc.
 * Output as plain text, wrapped in triple backticks
 * Only use conventional commit style if it is used in the repository already
 * After the commit description, add a blank line and then add `[ci-full]`
