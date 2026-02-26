@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+#
+# Installs Grafana MCP server configuration for VS Code in Codespaces
+
+set -euo pipefail
+
+# Resolve symlinks to find actual script location
+script_path="${BASH_SOURCE[0]}"
+while [ -L "$script_path" ]; do
+    script_dir="$(cd -P "$(dirname "$script_path")" && pwd)"
+    script_path="$(readlink "$script_path")"
+    [[ $script_path != /* ]] && script_path="$script_dir/$script_path"
+done
+dotfiles_dir="$(cd -P "$(dirname "$script_path")/.." && pwd)"
+
+# shellcheck source=../lib/utils.sh
+source "$dotfiles_dir/lib/utils.sh"
+mcp_config_dir="$HOME/.vscode-remote/data/User"
+mcp_config_file="$mcp_config_dir/mcp.json"
+
+mkdir -p "$mcp_config_dir"
+
+echo -n "Configuring mcp.json ..."
+if [ -f "$mcp_config_file" ]; then
+    # Merge with existing configuration
+    jq -s '.[0] * .[1]' "$mcp_config_file" "$dotfiles_dir/grafana-mcp.json" > "$mcp_config_file.tmp"
+    mv "$mcp_config_file.tmp" "$mcp_config_file"
+else
+    cp "$dotfiles_dir/grafana-mcp.json" "$mcp_config_file"
+fi
+echo "done"

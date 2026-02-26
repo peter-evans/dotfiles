@@ -1,0 +1,12 @@
+{
+	"servers": {
+		"grafana": {
+			"command": "uvx",
+			"args": ["mcp-grafana", "--disable-write"],
+			"env": {
+				"GRAFANA_URL": "https://<account>.grafana.net",
+				"GRAFANA_SERVICE_ACCOUNT_TOKEN": "<token>"
+			}
+		}
+	}
+}
